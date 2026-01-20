@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Deep Patel</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.06);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --accent-blue: #0A84FF;
+            --accent-purple: #5E5CE6;
+            --accent-pink: #BF5AF2;
+            --accent-green: #30D158;
+            --accent-orange: #FF9F0A;
+            --accent-red: #FF453A;
+            --accent-yellow: #FFD60A;
+            --accent-gradient: linear-gradient(135deg, #0A84FF 0%, #5E5CE6 50%, #BF5AF2 100%);
+            --text-primary: #FFF;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-tertiary: rgba(255, 255, 255, 0.45);
+            --bg: #050508;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            cursor: none;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent-blue);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transition: transform 0.15s var(--ease-out-expo), width 0.3s var(--ease-out-expo), height 0.3s var(--ease-out-expo), background 0.3s var(--ease-out-expo), border-color 0.3s var(--ease-out-expo);
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+        }
+
+        .cursor-dot {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10001;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s var(--ease-out-expo);
+        }
+
+        .cursor.hover {
+            width: 50px;
+            height: 50px;
+            background: rgba(10, 132, 255, 0.15);
+            border-color: var(--accent-pink);
+        }
+
+        .cursor.click {
+            transform: translate(-50%, -50%) scale(0.8);
+        }
+
+        /* Dynamic Background */
+        .dynamic-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background: radial-gradient(ellipse at 20% 20%, rgba(10, 132, 255, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(191, 90, 242, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(94, 92, 230, 0.05) 0%, transparent 70%), var(--bg);
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            will-change: transform;
+            transition: transform 0.3s var(--ease-out-expo);
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(10, 132, 255, 0.4), transparent 70%);
+            top: 50px;
+            left: -100px;
+            animation: orbFloat1 20s ease-in-out infinite;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(191, 90, 242, 0.4), transparent 70%);
+            top: 50%;
+            right: -150px;
+            animation: orbFloat2 25s ease-in-out infinite;
+        }
+
+        .orb-3 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(48, 209, 88, 0.3), transparent 70%);
+            bottom: -100px;
+            left: 30%;
+            animation: orbFloat3 22s ease-in-out infinite;
+        }
+
+        @keyframes orbFloat1 {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            33% {
+                transform: translate(50px, 30px);
+            }
+
+            66% {
+                transform: translate(-30px, 50px);
+            }
+        }
+
+        @keyframes orbFloat2 {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(-40px, -60px) scale(1.1);
+            }
+        }
+
+        @keyframes orbFloat3 {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(60px, -40px);
+            }
+        }
+
+        /* Coding Background Effects */
+        .code-bg {
+            position: fixed;
+            top: 150px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .code-line {
+            position: absolute;
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            color: rgba(10, 132, 255, 0.1);
+            white-space: nowrap;
+            animation: floatCode 25s linear infinite;
+            text-shadow: 0 0 8px rgba(10, 132, 255, 0.15);
+        }
+
+        .code-line:nth-child(odd) {
+            color: rgba(191, 90, 242, 0.12);
+            text-shadow: 0 0 10px rgba(191, 90, 242, 0.2);
+        }
+
+        .code-line:nth-child(3n) {
+            color: rgba(48, 209, 88, 0.12);
+            text-shadow: 0 0 10px rgba(48, 209, 88, 0.2);
+        }
+
+        @keyframes floatCode {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100px) rotate(5deg);
+                opacity: 0;
+            }
+        }
+
+        .binary-stream {
+            position: absolute;
+            font-family: 'Fira Code', monospace;
+            font-size: 10px;
+            color: rgba(10, 132, 255, 0.08);
+            writing-mode: vertical-rl;
+            animation: binaryFall 15s linear infinite;
+        }
+
+        @keyframes binaryFall {
+            0% {
+                transform: translateY(-100%);
+            }
+
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+
+        .bracket {
+            position: absolute;
+            font-family: 'Fira Code', monospace;
+            font-size: 60px;
+            font-weight: bold;
+            color: rgba(94, 92, 230, 0.06);
+            animation: floatBracket 25s ease-in-out infinite;
+        }
+
+        @keyframes floatBracket {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(30px, -50px) rotate(10deg);
+            }
+
+            50% {
+                transform: translate(-20px, -30px) rotate(-5deg);
+            }
+
+            75% {
+                transform: translate(40px, 20px) rotate(15deg);
+            }
+        }
+
+        .code-symbol {
+            position: absolute;
+            font-family: 'Fira Code', monospace;
+            font-size: 24px;
+            color: rgba(255, 159, 10, 0.1);
+            animation: symbolFloat 18s ease-in-out infinite;
+        }
+
+        @keyframes symbolFloat {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+                opacity: 0.1;
+            }
+
+            50% {
+                transform: translateY(-40px) scale(1.2);
+                opacity: 0.2;
+            }
+        }
+
+        .grain {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 0.025;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* Glass Morphism */
+        .liquid-glass {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            transition: all 0.5s var(--ease-out-expo);
+        }
+
+        .liquid-glass::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            opacity: 0.6;
+            transition: opacity 0.5s var(--ease-out-expo);
+        }
+
+        .liquid-glass:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 0 40px rgba(10, 132, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .liquid-glass:hover::before {
+            opacity: 1;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            padding: 10px 20px;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            background: rgba(5, 5, 8, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 3px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 4px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            padding: 10px 18px;
+            border-radius: 50px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 140px 5% 60px;
+            text-align: center;
+        }
+
+        .page-header .sec-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .page-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 400;
+            letter-spacing: 6px;
+            background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.8) 50%, rgba(10, 132, 255, 0.9) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: nameShimmer 5s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes nameShimmer {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .page-desc {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+            padding: 0 5%;
+        }
+
+        .filter-tab {
+            padding: 12px 24px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: none;
+            transition: all 0.4s var(--ease-out-expo);
+            border: none;
+            background: transparent;
+        }
+
+        .filter-tab:hover,
+        .filter-tab.active {
+            color: var(--text-primary);
+            background: rgba(10, 132, 255, 0.15);
+        }
+
+        .filter-tab.active {
+            box-shadow: 0 0 20px rgba(10, 132, 255, 0.3);
+        }
+
+        /* Projects Grid */
+        .projects-section {
+            padding: 0 5% 80px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .project {
+            border-radius: 28px;
+            overflow: hidden;
+            transition: all 0.5s var(--ease-out-back);
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        .project.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project:hover {
+            transform: translateY(-18px) scale(1.02);
+            box-shadow: 0 40px 80px rgba(10, 132, 255, 0.25);
+        }
+
+        .project-visual {
+            height: 220px;
+            background: linear-gradient(135deg, #1a1a2e, rgba(10, 132, 255, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-visual::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--accent-gradient);
+            opacity: 0;
+            transition: opacity 0.5s var(--ease-out-expo);
+        }
+
+        .project:hover .project-visual::before {
+            opacity: 0.25;
+        }
+
+        .project-visual i {
+            font-size: 4.5rem;
+            color: var(--accent-blue);
+            transition: all 0.5s var(--ease-out-back);
+            position: relative;
+            z-index: 1;
+        }
+
+        .project:hover .project-visual i {
+            transform: scale(1.3) rotate(8deg);
+            color: #fff;
+        }
+
+        .project:hover .project-visual img {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+
+        .project-tag {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            padding: 10px 16px;
+            border-radius: 100px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #fff;
+            z-index: 3;
+        }
+
+        .tag-live {
+            background: var(--accent-green);
+        }
+
+        .tag-featured {
+            background: var(--accent-gradient);
+        }
+
+        .tag-progress {
+            background: var(--accent-orange);
+        }
+
+        .tag-completed {
+            background: var(--accent-blue);
+        }
+
+        .tag-upcoming {
+            background: var(--accent-purple);
+        }
+
+        .project-info {
+            padding: 26px;
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .project-links a {
+            color: var(--text-tertiary);
+            transition: all 0.4s var(--ease-out-back);
+            padding: 10px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        .project-links a:hover {
+            color: var(--accent-blue);
+            transform: scale(1.25) rotate(5deg);
+            background: rgba(10, 132, 255, 0.15);
+        }
+
+        .project-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.75;
+            margin-bottom: 16px;
+        }
+
+        .tech-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tech-tag {
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s var(--ease-out-expo);
+        }
+
+        .tech-tag:hover {
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 60px 5%;
+            background: linear-gradient(180deg, transparent, rgba(10, 132, 255, 0.03), transparent);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 24px;
+        }
+
+        .stat-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.5rem;
+            letter-spacing: 2px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            text-decoration: none;
+            transition: all 0.5s var(--ease-out-back);
+            z-index: 99;
+        }
+
+        .back-btn:hover {
+            transform: scale(1.15) rotate(-10deg);
+            box-shadow: 0 15px 40px rgba(10, 132, 255, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 5%;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        footer p {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+        }
+
+        footer span {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Mobile Menu */
+        .menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: none;
+            padding: 12px;
+            border-radius: 12px;
+            transition: all 0.4s var(--ease-out-expo);
+            z-index: 101;
+        }
+
+        .menu-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .menu-btn span {
+            width: 26px;
+            height: 3px;
+            background: var(--text-primary);
+            border-radius: 3px;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .menu-btn.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        .menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                cursor: auto;
+            }
+
+            .cursor,
+            .cursor-dot {
+                display: none;
+            }
+
+            .code-bg {
+                opacity: 0.5;
+            }
+
+            nav {
+                width: calc(100% - 40px);
+                justify-content: space-between;
+                top: 16px;
+            }
+
+            .menu-btn {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 20px;
+                right: 20px;
+                flex-direction: column;
+                padding: 24px;
+                border-radius: 24px;
+                background: rgba(10, 10, 15, 0.98);
+                backdrop-filter: blur(50px);
+                border: 1px solid var(--glass-border);
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-20px) scale(0.95);
+                transition: all 0.5s var(--ease-out-expo);
+            }
+
+            .nav-links.open {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0) scale(1);
+            }
+
+            .nav-links a {
+                padding: 18px;
+                text-align: center;
+                border-radius: 14px;
+                font-size: 1.05rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-title {
+                font-size: 3rem;
+                letter-spacing: 3px;
+            }
+
+            .filter-tab,
+            .project,
+            .back-btn {
+                cursor: pointer;
+            }
+
+            .back-btn {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+
+            .stat-card {
+                padding: 20px 15px;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--accent-blue), var(--accent-purple));
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, var(--accent-purple), var(--accent-pink));
+        }
+
+        ::selection {
+            background: rgba(10, 132, 255, 0.35);
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+    <div class="dynamic-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+    <div class="code-bg" id="codeBg"></div>
+    <div class="grain"></div>
+
+    <nav>
+        <a href="index.html" class="logo">DEEP</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#skills">Skills</a></li>
+            <li><a href="projects.html" class="active">Projects</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+        <div class="menu-btn"><span></span><span></span><span></span></div>
+    </nav>
+
+    <header class="page-header">
+        <div class="sec-badge liquid-glass"><i class="fas fa-rocket"></i>Portfolio</div>
+        <h1 class="page-title">ALL PROJECTS</h1>
+        <p class="page-desc">A collection of my work showcasing full-stack development, database architecture, and
+            innovative solutions for real-world problems.</p>
+    </header>
+
+    <div class="filter-tabs">
+        <button class="filter-tab liquid-glass active" data-filter="all">All Projects</button>
+        <button class="filter-tab liquid-glass" data-filter="web">Web Apps</button>
+        <button class="filter-tab liquid-glass" data-filter="pos">POS Systems</button>
+        <button class="filter-tab liquid-glass" data-filter="tools">Tools</button>
+    </div>
+
+    <section class="projects-section">
+        <div class="projects-grid">
+            <!-- Project 1: Computer Store -->
+            <div class="project liquid-glass" data-category="web">
+                <div class="project-visual">
+                    <span class="project-tag tag-live">Live</span>
+                    <i class="fas fa-store"></i>
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">
+                        Computer Store
+                        <div class="project-links">
+                            <a href="https://github.com/deepkumardpatel/computer-store" target="_blank"
+                                rel="noopener noreferrer" title="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="#" target="_blank" rel="noopener noreferrer" title="Live Demo"><i
+                                    class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </h3>
+                    <p class="project-desc">A fully responsive e-commerce computer store built with modern web
+                        technologies. Features AJAX-powered real-time data refreshing for seamless shopping experience.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tech-tag"
+                            style="background: rgba(10, 132, 255, 0.15); color: #0A84FF;">HTML5</span>
+                        <span class="tech-tag" style="background: rgba(191, 90, 242, 0.15); color: #BF5AF2;">CSS3</span>
+                        <span class="tech-tag"
+                            style="background: rgba(94, 92, 230, 0.15); color: #5E5CE6;">Bootstrap</span>
+                        <span class="tech-tag" style="background: rgba(48, 209, 88, 0.15); color: #30D158;">AJAX</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2: Akshar POS -->
+            <div class="project liquid-glass" data-category="pos">
+                <div class="project-visual"
+                    style="background: linear-gradient(135deg, #1a1a2e, rgba(191, 90, 242, 0.15));">
+                    <span class="project-tag tag-featured">Featured</span>
+                    <i class="fas fa-cash-register"></i>
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">
+                        Akshar POS
+                        <div class="project-links">
+                            <a href="#" target="_blank" rel="noopener noreferrer" title="GitHub"><i
+                                    class="fab fa-github"></i></a>
+                            <a href="#" target="_blank" rel="noopener noreferrer" title="Live Demo"><i
+                                    class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </h3>
+                    <p class="project-desc">Modern restaurant POS system with real-time order management, inventory
+                        tracking, employee management, and comprehensive analytics dashboard.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag"
+                            style="background: rgba(255, 159, 10, 0.15); color: #FF9F0A;">Next.js</span>
+                        <span class="tech-tag"
+                            style="background: rgba(255, 69, 58, 0.15); color: #FF453A;">Firebase</span>
+                        <span class="tech-tag"
+                            style="background: rgba(48, 209, 88, 0.15); color: #30D158;">Node.js</span>
+                        <span class="tech-tag"
+                            style="background: rgba(10, 132, 255, 0.15); color: #0A84FF;">Stripe</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3: Employee Clock System -->
+            <div class="project liquid-glass" data-category="tools">
+                <div class="project-visual"
+                    style="background: linear-gradient(135deg, #1a1a2e, rgba(48, 209, 88, 0.15));">
+                    <span class="project-tag tag-progress">In Progress</span>
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">
+                        Employee Clock System
+                        <div class="project-links">
+                            <a href="#" target="_blank" rel="noopener noreferrer" title="GitHub"><i
+                                    class="fab fa-github"></i></a>
+                        </div>
+                    </h3>
+                    <p class="project-desc">Clock-in/out web application managing 20+ stores across Canada with
+                        real-time attendance tracking, shift scheduling, and payroll reporting.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag" style="background: rgba(94, 92, 230, 0.15); color: #5E5CE6;">React</span>
+                        <span class="tech-tag"
+                            style="background: rgba(255, 69, 58, 0.15); color: #FF453A;">Firebase</span>
+                        <span class="tech-tag"
+                            style="background: rgba(191, 90, 242, 0.15); color: #BF5AF2;">Vercel</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 4: Online Food Ordering Platform -->
+            <div class="project liquid-glass" data-category="web pos">
+                <div class="project-visual"
+                    style="background: linear-gradient(135deg, #1a1a2e, rgba(255, 159, 10, 0.15));">
+                    <span class="project-tag tag-progress">In Progress</span>
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">
+                        Food Ordering Platform
+                        <div class="project-links">
+                            <a href="#" target="_blank" rel="noopener noreferrer" title="GitHub"><i
+                                    class="fab fa-github"></i></a>
+                        </div>
+                    </h3>
+                    <p class="project-desc">Full-featured online ordering system for restaurants similar to
+                        DoorDash/SkipTheDishes, designed for Canadian restaurant owners with zero commission fees.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag"
+                            style="background: rgba(10, 132, 255, 0.15); color: #0A84FF;">Next.js</span>
+                        <span class="tech-tag"
+                            style="background: rgba(48, 209, 88, 0.15); color: #30D158;">MongoDB</span>
+                        <span class="tech-tag"
+                            style="background: rgba(191, 90, 242, 0.15); color: #BF5AF2;">Socket.io</span>
+                        <span class="tech-tag"
+                            style="background: rgba(255, 159, 10, 0.15); color: #FF9F0A;">Square</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 5: Restaurant Website Builder -->
+            <div class="project liquid-glass" data-category="web tools">
+                <div class="project-visual"
+                    style="background: linear-gradient(135deg, #1a1a2e, rgba(94, 92, 230, 0.15));">
+                    <span class="project-tag tag-upcoming">Upcoming</span>
+                    <i class="fas fa-palette"></i>
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">
+                        Restaurant Website Builder
+                        <div class="project-links">
+                            <a href="#" target="_blank" rel="noopener noreferrer" title="Coming Soon"><i
+                                    class="fas fa-hourglass-half"></i></a>
+                        </div>
+                    </h3>
+                    <p class="project-desc">Drag-and-drop website builder specifically designed for restaurants. Create
+                        beautiful, mobile-responsive websites with integrated menu management.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag" style="background: rgba(94, 92, 230, 0.15); color: #5E5CE6;">React</span>
+                        <span class="tech-tag"
+                            style="background: rgba(255, 69, 58, 0.15); color: #FF453A;">Firebase</span>
+                        <span class="tech-tag"
+                            style="background: rgba(10, 132, 255, 0.15); color: #0A84FF;">Cloudflare</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 6: Loyalty Program System -->
+            <div class="project liquid-glass" data-category="tools pos">
+                <div class="project-visual"
+                    style="background: linear-gradient(135deg, #1a1a2e, rgba(255, 214, 10, 0.15));">
+                    <span class="project-tag tag-upcoming">Upcoming</span>
+                    <i class="fas fa-gift"></i>
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">
+                        Loyalty Program System
+                        <div class="project-links">
+                            <a href="#" target="_blank" rel="noopener noreferrer" title="Coming Soon"><i
+                                    class="fas fa-hourglass-half"></i></a>
+                        </div>
+                    </h3>
+                    <p class="project-desc">Customer loyalty and rewards program with points tracking, digital stamp
+                        cards, special offers, and SMS marketing integration.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag"
+                            style="background: rgba(255, 214, 10, 0.15); color: #FFD60A;">Node.js</span>
+                        <span class="tech-tag"
+                            style="background: rgba(48, 209, 88, 0.15); color: #30D158;">PostgreSQL</span>
+                        <span class="tech-tag"
+                            style="background: rgba(191, 90, 242, 0.15); color: #BF5AF2;">Twilio</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 7: Inventory Management -->
+            <div class="project liquid-glass" data-category="tools pos">
+                <div class="project-visual"
+                    style="background: linear-gradient(135deg, #1a1a2e, rgba(10, 132, 255, 0.15));">
+                    <span class="project-tag tag-upcoming">Upcoming</span>
+                    <i class="fas fa-boxes"></i>
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">
+                        Inventory Management
+                        <div class="project-links">
+                            <a href="#" target="_blank" rel="noopener noreferrer" title="Coming Soon"><i
+                                    class="fas fa-hourglass-half"></i></a>
+                        </div>
+                    </h3>
+                    <p class="project-desc">Real-time inventory tracking system with low stock alerts, automatic
+                        reordering, supplier management, and waste tracking for restaurants.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag"
+                            style="background: rgba(10, 132, 255, 0.15); color: #0A84FF;">React</span>
+                        <span class="tech-tag"
+                            style="background: rgba(255, 69, 58, 0.15); color: #FF453A;">Firebase</span>
+                        <span class="tech-tag"
+                            style="background: rgba(48, 209, 88, 0.15); color: #30D158;">Charts.js</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 8: Digital Marketing Dashboard -->
+            <div class="project liquid-glass" data-category="tools web">
+                <div class="project-visual"
+                    style="background: linear-gradient(135deg, #1a1a2e, rgba(255, 69, 58, 0.15));">
+                    <span class="project-tag tag-upcoming">Upcoming</span>
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">
+                        Marketing Dashboard
+                        <div class="project-links">
+                            <a href="#" target="_blank" rel="noopener noreferrer" title="Coming Soon"><i
+                                    class="fas fa-hourglass-half"></i></a>
+                        </div>
+                    </h3>
+                    <p class="project-desc">Comprehensive digital marketing analytics dashboard for Hrinfocare clients.
+                        Track campaigns, SEO performance, and social media metrics in one place.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag"
+                            style="background: rgba(94, 92, 230, 0.15); color: #5E5CE6;">Next.js</span>
+                        <span class="tech-tag"
+                            style="background: rgba(255, 159, 10, 0.15); color: #FF9F0A;">D3.js</span>
+                        <span class="tech-tag" style="background: rgba(48, 209, 88, 0.15); color: #30D158;">Google
+                            APIs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 9: Nilkanth Crop Care -->
+            <div class="project liquid-glass" data-category="web">
+                <div class="project-visual"
+                    style="background: linear-gradient(135deg, #1a1a2e, rgba(48, 209, 88, 0.15)); padding: 0; overflow: hidden;">
+                    <span class="project-tag tag-live">Live</span>
+                    <img src="images/nilkanth-preview.png" alt="Nilkanth Crop Care Preview"
+                        style="width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0.9; transition: all 0.5s ease;"
+                        onerror="this.style.display='none'; this.parentElement.innerHTML += '<i class=\'fas fa-seedling\' style=\'font-size:4.5rem;color:var(--accent-blue);position:relative;z-index:1;\'></i><span class=\'project-tag tag-live\'>Live</span>';">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">
+                        Nilkanth Crop Care
+                        <div class="project-links">
+                            <a href="https://nilkanthcropcare.netlify.app/" target="_blank" rel="noopener noreferrer"
+                                title="Live Site"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </h3>
+                    <p class="project-desc">Agricultural solutions website for crop care products and services. Modern
+                        responsive design with product catalog and contact features.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag"
+                            style="background: rgba(10, 132, 255, 0.15); color: #0A84FF;">HTML5</span>
+                        <span class="tech-tag" style="background: rgba(191, 90, 242, 0.15); color: #BF5AF2;">CSS3</span>
+                        <span class="tech-tag"
+                            style="background: rgba(48, 209, 88, 0.15); color: #30D158;">JavaScript</span>
+                        <span class="tech-tag"
+                            style="background: rgba(255, 159, 10, 0.15); color: #FF9F0A;">Netlify</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-card liquid-glass">
+                <div class="stat-number">9+</div>
+                <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat-card liquid-glass">
+                <div class="stat-number">20+</div>
+                <div class="stat-label">Stores Served</div>
+            </div>
+            <div class="stat-card liquid-glass">
+                <div class="stat-number">7+</div>
+                <div class="stat-label">Technologies</div>
+            </div>
+            <div class="stat-card liquid-glass">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">Learning</div>
+            </div>
+        </div>
+    </section>
+
+    <a href="index.html" class="back-btn liquid-glass" title="Back to Home"><i class="fas fa-home"></i></a>
+
+    <footer>
+        <p>Designed & Built by <span>DEEP PATEL</span> | © 2024 All rights reserved</p>
+    </footer>
+
+    <script>
+        // Generate Coding Background
+        function generateCodeBg() {
+            const codeBg = document.getElementById('codeBg');
+            const codeSnippets = ['const developer = "Deep Patel";', 'function solve(problem) { }', 'import { skills } from "experience";', 'class Engineer extends Developer { }', 'return success;', 'async function buildFuture() { }', 'const passion = true;', 'while(learning) { grow(); }', 'if(challenge) { overcome(); }', 'export default excellence;', 'npm install success', 'git commit -m "innovation"', '{ "status": "coding" }', 'SELECT * FROM skills;', 'CREATE TABLE projects;', '<div className="dream">', 'useState(motivated)', 'useEffect(() => learn())', '// TODO: Change the world', '/* Innovation starts here */'];
+
+            for (let i = 0; i < 12; i++) {
+                const codeLine = document.createElement('div');
+                codeLine.className = 'code-line';
+                codeLine.textContent = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+                codeLine.style.left = Math.random() * 100 + '%';
+                codeLine.style.animationDuration = (15 + Math.random() * 20) + 's';
+                codeLine.style.animationDelay = Math.random() * 20 + 's';
+                codeLine.style.fontSize = (10 + Math.random() * 6) + 'px';
+                codeBg.appendChild(codeLine);
+            }
+
+            for (let i = 0; i < 6; i++) {
+                const binary = document.createElement('div');
+                binary.className = 'binary-stream';
+                let binaryStr = '';
+                for (let j = 0; j < 50; j++) { binaryStr += Math.round(Math.random()) + ' '; }
+                binary.textContent = binaryStr;
+                binary.style.left = (5 + Math.random() * 90) + '%';
+                binary.style.animationDuration = (10 + Math.random() * 15) + 's';
+                binary.style.animationDelay = Math.random() * 10 + 's';
+                codeBg.appendChild(binary);
+            }
+
+            const brackets = ['{ }', '< />', '[ ]', '( )', '=> { }'];
+            for (let i = 0; i < 5; i++) {
+                const bracket = document.createElement('div');
+                bracket.className = 'bracket';
+                bracket.textContent = brackets[i];
+                bracket.style.left = (10 + Math.random() * 80) + '%';
+                bracket.style.top = (10 + Math.random() * 80) + '%';
+                bracket.style.animationDelay = Math.random() * 10 + 's';
+                bracket.style.fontSize = (40 + Math.random() * 40) + 'px';
+                codeBg.appendChild(bracket);
+            }
+
+            const symbols = ['#', '@', '$', '%', '&', '*', '++', '--', '==', '!='];
+            for (let i = 0; i < 8; i++) {
+                const symbol = document.createElement('div');
+                symbol.className = 'code-symbol';
+                symbol.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                symbol.style.left = Math.random() * 100 + '%';
+                symbol.style.top = Math.random() * 100 + '%';
+                symbol.style.animationDelay = Math.random() * 8 + 's';
+                symbol.style.fontSize = (18 + Math.random() * 20) + 'px';
+                codeBg.appendChild(symbol);
+            }
+        }
+        generateCodeBg();
+
+        // Cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorDot = document.querySelector('.cursor-dot');
+        let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX; mouseY = e.clientY;
+            cursorDot.style.left = mouseX + 'px';
+            cursorDot.style.top = mouseY + 'px';
+        });
+
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.15;
+            cursorY += (mouseY - cursorY) * 0.15;
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        document.querySelectorAll('a, button, .project, .stat-card, .filter-tab, .back-btn').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        document.addEventListener('mousedown', () => cursor.classList.add('click'));
+        document.addEventListener('mouseup', () => cursor.classList.remove('click'));
+
+        // Menu
+        const menuBtn = document.querySelector('.menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        menuBtn.addEventListener('click', () => { menuBtn.classList.toggle('active'); navLinks.classList.toggle('open'); });
+        document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => { menuBtn.classList.remove('active'); navLinks.classList.remove('open'); }));
+        document.addEventListener('click', (e) => { if (!e.target.closest('nav') && navLinks.classList.contains('open')) { menuBtn.classList.remove('active'); navLinks.classList.remove('open'); } });
+
+        // Filter
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const projects = document.querySelectorAll('.project');
+
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                filterTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                const filter = tab.dataset.filter;
+                projects.forEach((project, i) => {
+                    const category = project.dataset.category;
+                    if (filter === 'all' || category.includes(filter)) {
+                        project.style.display = 'block';
+                        setTimeout(() => project.classList.add('visible'), i * 100);
+                    } else {
+                        project.classList.remove('visible');
+                        setTimeout(() => project.style.display = 'none', 300);
+                    }
+                });
+            });
+        });
+
+        // Initial reveal
+        setTimeout(() => {
+            projects.forEach((project, i) => {
+                setTimeout(() => project.classList.add('visible'), i * 100);
+            });
+        }, 300);
+
+        // Parallax
+        document.addEventListener('mousemove', (e) => {
+            const orbs = document.querySelectorAll('.orb');
+            const x = e.clientX / window.innerWidth, y = e.clientY / window.innerHeight;
+            orbs.forEach((orb, i) => { const speed = (i + 1) * 25; orb.style.transform = `translate(${(x - 0.5) * speed}px, ${(y - 0.5) * speed}px)`; });
+        });
+    </script>
+</body>
+
+</html>
